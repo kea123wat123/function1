@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Excel Formula Challenge — 40 Questions</title>
+<style>
+:root{--bg:#0c1525;--card:#14243a;--card2:#1b2e48;--text:#edf5ff;--muted:#a8bdd4;--green:#35d39a;--cyan:#67c9ff;--red:#ff6d7d;--gold:#ffcf68}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1c3851 0,#0c1525 55%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+main{max-width:860px;margin:0 auto;padding:22px 14px 44px}.hero{display:flex;align-items:center;gap:16px;margin-bottom:18px}.logo{width:64px;height:64px;display:grid;place-items:center;background:linear-gradient(135deg,#2fd19b,#168a74);border-radius:18px;font-size:32px;box-shadow:0 10px 30px #0004}.hero h1{margin:0;font-size:clamp(22px,4vw,34px)}.hero p{margin:5px 0 0;color:var(--muted)}
+.card{background:linear-gradient(180deg,#182b43,#132238);border:1px solid #2d4561;border-radius:20px;padding:22px;box-shadow:0 15px 40px #0003;margin:14px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}.field input{width:100%;padding:12px;border-radius:12px;border:1px solid #405873;background:#0e1b2c;color:white;font-size:16px;outline:none}.field input:focus{border-color:var(--cyan)}
+.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:750;cursor:pointer;font-size:15px;background:var(--green);color:#06261c}.btn.secondary{background:#2a405c;color:var(--text)}.btn.danger{background:#562b3c;color:#ffe8ed}.btn:disabled{opacity:.45;cursor:not-allowed}
+.full{width:100%;margin-top:14px}.instructions{color:var(--muted);line-height:1.7}.chip{display:inline-block;background:#233c58;color:#cde7ff;border-radius:999px;padding:6px 10px;font-size:13px;margin:4px 5px 0 0}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.timer{font-size:22px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}.timer.warn{color:var(--red);animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.5}}
+.progress{height:8px;background:#263c55;border-radius:10px;overflow:hidden;margin:16px 0}.progress>div{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));width:0;transition:width .2s}
+.question{font-size:19px;font-weight:750;line-height:1.55;margin:16px 0}.choices{display:grid;gap:10px}.choice{width:100%;text-align:left;padding:14px 15px;border:1px solid #405873;border-radius:13px;background:#12243a;color:var(--text);cursor:pointer;font-size:16px;transition:.15s}.choice:hover:not(:disabled){border-color:var(--cyan);background:#1d3652}.choice.correct{border-color:var(--green);background:#164434}.choice.wrong{border-color:var(--red);background:#4b2534}.feedback{margin-top:14px;border-radius:13px;padding:14px;line-height:1.55}.feedback.good{background:#123a2d;border:1px solid #267b5a}.feedback.bad{background:#442632;border:1px solid #8a3f54}.hidden{display:none!important}.small{font-size:13px;color:var(--muted)}.resultScore{font-size:clamp(38px,8vw,64px);font-weight:900;text-align:center;color:var(--green);margin:8px}.resultTitle{text-align:center;font-size:24px;font-weight:850}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#0f1e31;border:1px solid #2d4561;border-radius:14px;padding:14px;text-align:center}.stat b{font-size:22px;display:block}.stat span{color:var(--muted);font-size:12px}.tableWrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:520px}th,td{padding:10px;border-bottom:1px solid #2d4561;text-align:left}th{color:var(--muted);font-size:13px}.footerNote{font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px}
+@media(max-width:580px){.grid{grid-template-columns:1fr}.card{padding:17px}.statgrid{grid-template-columns:1fr 1fr}.question{font-size:17px}.hero{align-items:flex-start}}
+</style>
+</head>
+<body><main>
+<header class="hero"><div class="logo">ƒx</div><div><h1>Excel Formula Challenge</h1><p>40 ข้อ • Expert Level • สูตร Excel</p></div></header>
+<section id="start" class="card">
+<h2>👩‍🎓 ข้อมูลผู้เล่น</h2>
+<div class="grid">
+<div class="field"><label>ชื่อ</label><input id="first" placeholder="ชื่อ"></div>
+<div class="field"><label>นามสกุล</label><input id="last" placeholder="นามสกุล"></div>
+<div class="field"><label>เลขที่</label><input id="number" inputmode="numeric" placeholder="เลขที่"></div>
+<div class="field"><label>ชั้น</label><input id="classroom" placeholder="เช่น ม.6/1"></div>
+</div>
+<p class="instructions">กติกา: สุ่มคำถามและสุ่มตัวเลือกทุกครั้ง • ตอบได้ข้อละ 1 คะแนน • 40 คะแนนเต็ม • จับเวลา 15 นาที • เมื่อเลือกคำตอบจะมีเฉลยและคำอธิบาย</p>
+<div><span class="chip">SUM</span><span class="chip">MAX</span><span class="chip">MIN</span><span class="chip">AVERAGE</span><span class="chip">UPPER</span><span class="chip">LOWER</span><span class="chip">LEN</span><span class="chip">COUNT</span><span class="chip">BAHTTEXT</span></div>
+<button class="btn full" id="startBtn">🚀 เริ่มทำข้อสอบ</button>
+</section>
+<section id="quiz" class="card hidden">
+<div class="topline"><span id="studentBadge"></span><span id="clock" class="timer">15:00</span></div>
+<div class="progress"><div id="progressFill"></div></div>
+<div class="topline"><span id="questionNum" class="small"></span><span id="liveScore" class="chip">คะแนน 0</span></div>
+<div id="question" class="question"></div>
+<div id="choices" class="choices"></div>
+<div id="feedback" class="feedback hidden"></div>
+<button class="btn full hidden" id="nextBtn">ข้อถัดไป →</button>
+</section>
+<section id="result" class="card hidden">
+<div class="resultTitle">🏁 สรุปผลการทำแบบทดสอบ</div><div id="resultName"></div><div id="score" class="resultScore"></div><div id="level" class="resultTitle"></div>
+<div class="statgrid"><div class="stat"><b id="correctStat">0</b><span>ตอบถูก</span></div><div class="stat"><b id="wrongStat">0</b><span>ตอบผิด</span></div><div class="stat"><b id="timeStat">00:00</b><span>เวลาที่ใช้</span></div></div>
+<div class="tableWrap" style="margin-top:18px"><table id="detailTable"><thead><tr><th>ข้อ</th><th>คำตอบของผู้เล่น</th><th>เฉลย</th><th>ผล</th></tr></thead><tbody></tbody></table></div>
+<button class="btn full" id="exportOne">⬇ ดาวน์โหลดผลผู้เล่น (CSV)</button>
+<button class="btn full secondary" id="exportSession">⬇ ดาวน์โหลดคะแนนทั้งหมดในรอบนี้ (CSV)</button>
+<button class="btn full secondary" id="again">🔄 เล่นใหม่</button>
+<p class="footerNote">หมายเหตุ: ไฟล์ HTML นี้บันทึกผลผู้เล่นที่เล่นบนเบราว์เซอร์/เครื่องเดียวกันในรอบเปิดเกมเท่านั้น หากต้องการรวมคะแนนจากนักเรียนที่เล่นคนละเครื่องผ่านลิงก์ออนไลน์ ต้องเชื่อมฐานข้อมูลกลาง เช่น Google Sheets / Apps Script</p>
+</section>
+</main>
+<script>
+const QUESTIONS = [{"q": "จากข้อมูล A1:A5 มีค่า 12, 18, 25, 10 และ 5 สูตร =SUM(A1:A5) ได้ผลลัพธ์เท่าใด?", "opts": ["70", "65", "60", "75"], "correct": "70", "explain": "SUM รวมค่าตัวเลขทั้งหมดในช่วง A1:A5"}, {"q": "B1:B4 มี 20, 15, 10, 5 และ C1:C2 มี 7, 3 สูตร =SUM(B1:B4,C1:C2) ได้เท่าใด?", "opts": ["60", "55", "50", "65"], "correct": "60", "explain": "รวมทั้งสองช่วง: 20+15+10+5+7+3 = 60"}, {"q": "เซลล์ A1=100, A2=25, A3 เป็นข้อความ '50' สูตร =SUM(A1:A3) ได้เท่าใด?", "opts": ["125", "175", "150", "100"], "correct": "125", "explain": "SUM ไม่รวมตัวเลขที่เก็บเป็นข้อความในช่วงอ้างอิง"}, {"q": "ถ้า A1=8, A2=12, A3=20 สูตร =SUM(A1:A3)*2 ได้เท่าใด?", "opts": ["80", "40", "60", "72"], "correct": "80", "explain": "SUM ได้ 40 แล้วคูณ 2"}, {"q": "ช่วง A1:A4 มี 2, 4, 6, 8 และ B1=10 สูตร =SUM(A1:A4,B1) ได้เท่าใด?", "opts": ["30", "20", "40", "28"], "correct": "30", "explain": "รวม 2+4+6+8+10 = 30"}, {"q": "สูตรใดรวมตัวเลขในเซลล์ A2 ถึง A10 ได้ถูกต้อง?", "opts": ["=SUM(A2:A10)", "=SUM(A2-A10)", "=COUNT(A2:A10)", "=ADD(A2:A10)"], "correct": "=SUM(A2:A10)", "explain": "เครื่องหมาย : ใช้ระบุช่วงเซลล์ต่อเนื่อง"}, {"q": "คะแนน B2:B6 คือ 72, 91, 88, 65, 91 สูตร =MAX(B2:B6) ได้ค่าใด?", "opts": ["91", "88", "72", "65"], "correct": "91", "explain": "MAX คืนค่ามากที่สุด"}, {"q": "A1=35, A2=120, A3=99, B1=150 สูตร =MAX(A1:A3,B1) ได้เท่าใด?", "opts": ["150", "120", "99", "35"], "correct": "150", "explain": "MAX สามารถรับหลายช่วงหรือค่าที่แยกกัน"}, {"q": "ช่วง C1:C5 มี 0, -5, -12, -3, -8 สูตร =MAX(C1:C5) ได้ค่าใด?", "opts": ["0", "-3", "-5", "-12"], "correct": "0", "explain": "0 มากกว่าค่าติดลบทั้งหมด"}, {"q": "เซลล์ D1:D4 มี 45, 45, 30, 40 สูตร =MAX(D1:D4) ได้ค่าใด?", "opts": ["45", "40", "30", "90"], "correct": "45", "explain": "ค่ามากที่สุดยังคงเป็น 45 แม้ซ้ำกัน"}, {"q": "ข้อมูล A1:A5 คือ 12, 8, 19, 3, 15 สูตร =MIN(A1:A5) ได้เท่าใด?", "opts": ["3", "8", "12", "19"], "correct": "3", "explain": "MIN คืนค่าที่น้อยที่สุด"}, {"q": "B1=0, B2=-4, B3=-9, B4=2 สูตร =MIN(B1:B4) ได้ค่าใด?", "opts": ["-9", "-4", "0", "2"], "correct": "-9", "explain": "ค่าติดลบที่มีค่าน้อยที่สุดคือ -9"}, {"q": "ช่วง C1:C4 มี 50, 25, 25, 40 สูตร =MIN(C1:C4) ได้ค่าใด?", "opts": ["25", "40", "50", "100"], "correct": "25", "explain": "ค่าต่ำสุด 25 แม้ปรากฏสองครั้ง"}, {"q": "สูตรใดหาค่าที่น้อยที่สุดจาก A1:A10 และ C1:C5 พร้อมกัน?", "opts": ["=MIN(A1:A10,C1:C5)", "=MIN(A1:C10)", "=LOW(A1:A10,C1:C5)", "=SMALL(A1:A10,C1:C5)"], "correct": "=MIN(A1:A10,C1:C5)", "explain": "MIN รับช่วงข้อมูลหลายช่วงได้"}, {"q": "คะแนน 60, 70, 80, 90 สูตร =AVERAGE(A1:A4) ได้เท่าใด?", "opts": ["75", "80", "70", "300"], "correct": "75", "explain": "ค่าเฉลี่ย = ผลรวม 300 หาร 4"}, {"q": "A1:A5 มี 10, 20, (ว่าง), 30, 40 สูตร =AVERAGE(A1:A5) ได้เท่าใด?", "opts": ["25", "20", "30", "100"], "correct": "25", "explain": "AVERAGE ไม่คิดเซลล์ว่างเป็นตัวหาร"}, {"q": "A1=10, A2=20, A3 เป็นข้อความ '30' สูตร =AVERAGE(A1:A3) ได้เท่าใด?", "opts": ["15", "20", "30", "60"], "correct": "15", "explain": "ข้อความในช่วงถูกละเว้น; (10+20)/2"}, {"q": "คะแนน 80, 80, 100, 40 สูตร =AVERAGE(A1:A4) ได้เท่าใด?", "opts": ["75", "80", "70", "300"], "correct": "75", "explain": "รวม 300 หาร 4"}, {"q": "หากค่าใน A1:A3 คือ 5, 10, 15 สูตร =AVERAGE(A1:A3)+MAX(A1:A3) ได้เท่าใด?", "opts": ["25", "20", "30", "15"], "correct": "25", "explain": "ค่าเฉลี่ย 10 บวกค่าสูงสุด 15"}, {"q": "ถ้า A1:A4 มี 2, 4, 6, 8 สูตร =AVERAGE(A1:A4)*COUNT(A1:A4) ได้เท่าใด?", "opts": ["20", "5", "10", "40"], "correct": "20", "explain": "ค่าเฉลี่ย 5 คูณจำนวนข้อมูลตัวเลข 4"}, {"q": "ถ้า A1 มีข้อความ 'Excel formula' สูตร =UPPER(A1) คืนค่าอะไร?", "opts": ["EXCEL FORMULA", "Excel Formula", "excel formula", "EXCEL formula"], "correct": "EXCEL FORMULA", "explain": "UPPER แปลงตัวอักษรภาษาอังกฤษเป็นพิมพ์ใหญ่"}, {"q": "ผลลัพธ์ของ =UPPER(\"aBc-xy9\") คือข้อใด?", "opts": ["ABC-XY9", "abc-xy9", "AbC-Xy9", "ABC-xy9"], "correct": "ABC-XY9", "explain": "UPPER เปลี่ยนเฉพาะตัวอักษรเป็นพิมพ์ใหญ่"}, {"q": "ถ้า A1='room 12' สูตร =UPPER(A1) ได้ผลลัพธ์ใด?", "opts": ["ROOM 12", "Room 12", "room 12", "ROOM TWELVE"], "correct": "ROOM 12", "explain": "ตัวเลขและช่องว่างไม่เปลี่ยน"}, {"q": "สูตรใดแปลงข้อความในเซลล์ B3 ให้เป็นตัวพิมพ์ใหญ่ทั้งหมด?", "opts": ["=UPPER(B3)", "=LOWER(B3)", "=CAPITAL(B3)", "=LEN(B3)"], "correct": "=UPPER(B3)", "explain": "ใช้ UPPER กับการอ้างอิงเซลล์"}, {"q": "ถ้า A1='DATA SCIENCE' สูตร =LOWER(A1) ได้ค่าใด?", "opts": ["data science", "DATA SCIENCE", "Data Science", "data Science"], "correct": "data science", "explain": "LOWER แปลงตัวอักษรเป็นพิมพ์เล็ก"}, {"q": "ผลลัพธ์ของ =LOWER(\"AbC123-X\") คือข้อใด?", "opts": ["abc123-x", "ABC123-X", "Abc123-x", "abc123-X"], "correct": "abc123-x", "explain": "LOWER เปลี่ยนตัวอักษรเท่านั้น"}, {"q": "ถ้า A2='Student_ID' สูตร =LOWER(A2) ได้ผลลัพธ์ใด?", "opts": ["student_id", "STUDENT_ID", "Student_id", "student-ID"], "correct": "student_id", "explain": "ขีดล่างและตัวอักษรอื่นที่ไม่ใช่ตัวพิมพ์เปลี่ยนตามเดิม"}, {"q": "สูตรใดแปลงข้อความใน C5 เป็นตัวพิมพ์เล็กทั้งหมด?", "opts": ["=LOWER(C5)", "=UPPER(C5)", "=SMALL(C5)", "=LEN(C5)"], "correct": "=LOWER(C5)", "explain": "LOWER ใช้แปลงเป็น lowercase"}, {"q": "ข้อความใน A1 คือ 'Excel' สูตร =LEN(A1) ได้เท่าใด?", "opts": ["5", "4", "6", "7"], "correct": "5", "explain": "LEN นับจำนวนอักขระในข้อความ"}, {"q": "ถ้า A1 มีข้อความ 'Excel 365' (มีช่องว่างหนึ่งช่อง) สูตร =LEN(A1) ได้เท่าใด?", "opts": ["9", "8", "10", "7"], "correct": "9", "explain": "Excel มี 5 ตัว + ช่องว่าง 1 + 365 มี 3 ตัว รวม 9"}, {"q": "ผลลัพธ์ของ =LEN(\"A B C\") คือข้อใด?", "opts": ["5", "3", "6", "4"], "correct": "5", "explain": "นับช่องว่างด้วย: A, ช่องว่าง, B, ช่องว่าง, C"}, {"q": "ถ้าเซลล์ B2 มีข้อความ '  Hi  ' โดยมีช่องว่างหน้า 2 และหลัง 2 สูตร =LEN(B2) ได้เท่าใด?", "opts": ["6", "2", "4", "8"], "correct": "6", "explain": "นับ H, i และช่องว่างรวม 4 ช่อง = 6"}, {"q": "A1:A6 มี 10, 20, '30' (ข้อความ), ว่าง, 40, 'abc' สูตร =COUNT(A1:A6) ได้เท่าใด?", "opts": ["3", "4", "5", "2"], "correct": "3", "explain": "COUNT นับเฉพาะค่าตัวเลข 10,20,40"}, {"q": "ช่วง B1:B5 มี 1, 2, 3, 4, 5 สูตร =COUNT(B1:B5) ได้เท่าใด?", "opts": ["5", "4", "15", "1"], "correct": "5", "explain": "COUNT นับเซลล์ที่มีตัวเลข"}, {"q": "A1=วันที่ 1/1/2026, A2=15, A3='15' (ข้อความ), A4 ว่าง สูตร =COUNT(A1:A4) ได้เท่าใด?", "opts": ["2", "3", "1", "4"], "correct": "2", "explain": "วันที่ถูกเก็บเป็นเลข serial จึงนับ; 15 เป็นตัวเลข, '15' ข้อความไม่นับ"}, {"q": "สูตรใดนับจำนวนเซลล์ที่มีตัวเลขในช่วง D2:D20?", "opts": ["=COUNT(D2:D20)", "=COUNTA(D2:D20)", "=SUM(D2:D20)", "=LEN(D2:D20)"], "correct": "=COUNT(D2:D20)", "explain": "COUNT นับเซลล์ที่มีตัวเลขเท่านั้น"}, {"q": "สูตร =BAHTTEXT(1250) แปลงจำนวนเงินเป็นข้อความภาษาไทยแบบใด?", "opts": ["หนึ่งพันสองร้อยห้าสิบบาทถ้วน", "หนึ่งพันสองร้อยห้าสิบบาทห้าสิบสตางค์", "1,250 บาท", "หนึ่งพันสองร้อยห้าสิบ"], "correct": "หนึ่งพันสองร้อยห้าสิบบาทถ้วน", "explain": "BAHTTEXT แปลงตัวเลขเป็นข้อความจำนวนเงินบาท"}, {"q": "สูตร =BAHTTEXT(99.50) ให้ข้อความเกี่ยวกับจำนวนเงินอย่างไร?", "opts": ["เก้าสิบเก้าบาทห้าสิบสตางค์", "เก้าสิบเก้าบาทถ้วน", "เก้าสิบเก้าสตางค์", "99.50 บาท"], "correct": "เก้าสิบเก้าบาทห้าสิบสตางค์", "explain": "BAHTTEXT แปลงส่วนทศนิยมเป็นสตางค์"}, {"q": "หาก A1 มีค่า 2500 สูตรใดแสดงจำนวนเงินเป็นข้อความภาษาไทย?", "opts": ["=BAHTTEXT(A1)", "=THAI(A1)", "=TEXTBAHT(A1)", "=UPPER(A1)"], "correct": "=BAHTTEXT(A1)", "explain": "BAHTTEXT ใช้กับค่าตัวเลขหรือการอ้างอิงเซลล์"}, {"q": "สูตร =BAHTTEXT(100) มีวัตถุประสงค์หลักข้อใด?", "opts": ["แปลงตัวเลขเป็นข้อความจำนวนเงินบาท", "คำนวณค่าเฉลี่ย", "นับเซลล์ตัวเลข", "แปลงข้อความเป็นพิมพ์ใหญ่"], "correct": "แปลงตัวเลขเป็นข้อความจำนวนเงินบาท", "explain": "BAHTTEXT ใช้แสดงจำนวนเงินเป็นข้อความภาษาไทย"}];
+const durationSeconds=15*60;
+let quiz=[], current=0, score=0, answered=false, timeLeft=durationSeconds, timerHandle=null;
+let profile={}, results=[], sessionScores=[];
+const $=id=>document.getElementById(id);
+function shuffle(arr){let a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function start(){
+ profile={first:$('first').value.trim(),last:$('last').value.trim(),number:$('number').value.trim(),classroom:$('classroom').value.trim()};
+ if(!profile.first||!profile.last||!profile.number||!profile.classroom){alert('กรุณากรอกชื่อ นามสกุล เลขที่ และชั้นให้ครบ');return}
+ quiz=shuffle(QUESTIONS).map(q=>({...q,opts:shuffle(q.opts)}));current=0;score=0;results=[];answered=false;timeLeft=durationSeconds;
+ $('start').classList.add('hidden');$('result').classList.add('hidden');$('quiz').classList.remove('hidden');
+ $('studentBadge').textContent=`${profile.first} ${profile.last} • ${profile.classroom} เลขที่ ${profile.number}`;
+ render();updateClock();timerHandle=setInterval(()=>{timeLeft--;updateClock();if(timeLeft<=0)finish(true)},1000)
+}
+function updateClock(){let m=Math.floor(timeLeft/60),s=timeLeft%60;$('clock').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;$('clock').classList.toggle('warn',timeLeft<=60)}
+function render(){
+ const q=quiz[current];answered=false;$('feedback').className='feedback hidden';$('nextBtn').classList.add('hidden');
+ $('questionNum').textContent=`ข้อ ${current+1} / ${quiz.length}`;$('progressFill').style.width=`${current/quiz.length*100}%`;$('liveScore').textContent=`คะแนน ${score}`;
+ $('question').textContent=q.q;const cont=$('choices');cont.innerHTML='';
+ q.opts.forEach(opt=>{const b=document.createElement('button');b.className='choice';b.textContent=opt;b.onclick=()=>select(opt,b);cont.appendChild(b)});
+}
+function select(opt,button){
+ if(answered)return;answered=true;const q=quiz[current];const ok=opt===q.correct;if(ok)score++;
+ results.push({question:q.q,selected:opt,correct:q.correct,ok,explanation:q.explain});
+ [...$('choices').children].forEach(b=>{b.disabled=true;if(b.textContent===q.correct)b.classList.add('correct');if(b===button&&!ok)b.classList.add('wrong')});
+ const f=$('feedback');f.className=`feedback ${ok?'good':'bad'}`;f.innerHTML=`<strong>${ok?'✓ ถูกต้อง!':'✗ ยังไม่ถูก'}</strong><br>เฉลย: <b></b><br><span></span>`;
+ f.querySelector('b').textContent=q.correct;f.querySelector('span').textContent=q.explain;
+ $('liveScore').textContent=`คะแนน ${score}`;$('nextBtn').textContent=current===quiz.length-1?'ดูผลคะแนน 🏆':'ข้อถัดไป →';$('nextBtn').classList.remove('hidden');
+}
+function next(){if(!answered)return;if(current===quiz.length-1){finish(false);return}current++;render()}
+function finish(timeout=false){
+ if(timerHandle){clearInterval(timerHandle);timerHandle=null}
+ $('quiz').classList.add('hidden');$('result').classList.remove('hidden');
+ const elapsed=durationSeconds-timeLeft;const correct=results.filter(r=>r.ok).length;const wrong=results.length-correct;const pct=Math.round(correct/quiz.length*100);
+ let rating=pct>=90?'ยอดเยี่ยม — Excel Expert 🏆':pct>=80?'ดีมาก — Advanced 🥇':pct>=70?'ดี — Proficient 🥈':pct>=50?'ผ่าน — Developing 🟡':'ควรฝึกเพิ่มเติม — Beginner 📘';
+ $('resultName').innerHTML='';$('resultName').textContent=`${profile.first} ${profile.last} • ${profile.classroom} • เลขที่ ${profile.number}`+(timeout?' • หมดเวลา':'');
+ $('score').textContent=`${correct} / ${quiz.length} (${pct}%)`;$('level').textContent=rating;
+ $('correctStat').textContent=correct;$('wrongStat').textContent=wrong;$('timeStat').textContent=fmtTime(elapsed);
+ const tbody=$('detailTable').querySelector('tbody');tbody.innerHTML='';
+ results.forEach((r,i)=>{const tr=document.createElement('tr');[i+1,r.selected,r.correct,r.ok?'ถูก':'ผิด'].forEach((val,j)=>{const td=document.createElement('td');td.textContent=val;tr.appendChild(td)});tbody.appendChild(tr)});
+ const record={name:profile.first,surname:profile.last,number:profile.number,class:profile.classroom,score:correct,total:quiz.length,percent:pct,correct,wrong,time:fmtTime(elapsed),date:new Date().toLocaleString('th-TH'),details:results.slice()};
+ sessionScores.push(record);
+}
+function fmtTime(s){return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`}
+function csvEscape(v){return '"'+String(v??'').replaceAll('"','""')+'"'}
+function downloadCSV(filename,rows){const csv='\ufeff'+rows.map(row=>row.map(csvEscape).join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url)}
+function exportOne(){const r=sessionScores[sessionScores.length-1];downloadCSV('ExcelFormulaChallenge_Student.csv',[['ชื่อ','นามสกุล','เลขที่','ชั้น','คะแนน','เต็ม','ร้อยละ','ถูก','ผิด','เวลา','วันที่'],[r.name,r.surname,r.number,r.class,r.score,r.total,r.percent,r.correct,r.wrong,r.time,r.date],[],['ข้อ','คำถาม','คำตอบที่เลือก','เฉลย','ผล','คำอธิบาย'],...r.details.map((d,i)=>[i+1,d.question,d.selected,d.correct,d.ok?'ถูก':'ผิด',d.explanation])])}
+function exportAll(){downloadCSV('ExcelFormulaChallenge_Class.csv',[['ชื่อ','นามสกุล','เลขที่','ชั้น','คะแนน','เต็ม','ร้อยละ','ถูก','ผิด','เวลา','วันที่'],...sessionScores.map(r=>[r.name,r.surname,r.number,r.class,r.score,r.total,r.percent,r.correct,r.wrong,r.time,r.date])])}
+$('startBtn').onclick=start;$('nextBtn').onclick=next;$('exportOne').onclick=exportOne;$('exportSession').onclick=exportAll;
+$('again').onclick=()=>{if(timerHandle)clearInterval(timerHandle);$('result').classList.add('hidden');$('start').classList.remove('hidden');$('first').value='';$('last').value='';$('number').value='';$('classroom').value='';};
+</script>
+</body></html>
